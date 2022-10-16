@@ -1,10 +1,14 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Redirect, Route, Switch} from 'react-router-dom';
 import {privateRoutes, publicRoutes} from '../router';
 import {CHAT_ROUTE, LOGIN_ROUTE} from '../utils/consts';
+import {useAuthState} from 'react-firebase-hooks/auth';
+import {AuthContext} from '../context';
 
 const AppRouter = () => {
-    const user = false;
+    const {auth} = useContext(AuthContext);
+    const [user] = useAuthState(auth);
+
     return user ? (
             <Switch>
                 {privateRoutes.map(route =>
